@@ -30,7 +30,7 @@ export const NavBar: React.FC<Props> = (props) => {
         <div className="nav-bar">
 
             <SearchUser />
-            <a href="/home">Home</a>
+            <a href="/dashboard">Home</a>
             {/* <a href={`/user/${props._id}`}>My Profile</a> */}
             <div className="container" onClick={handleShowFriendReqs}>
                 <span className="material-symbols-rounded">person_add</span>

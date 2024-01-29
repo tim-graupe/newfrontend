@@ -8,6 +8,7 @@ import { Terms } from './auth/Terms';
 import { UserDashBoard } from './dashboard/UserDashBoard';
 import { NavBar } from './dashboard/nav/NavBar';
 import Footer from './dashboard/nav/Footer';
+import { RequireAuth } from './auth/RequireAuth';
 
 export interface User {
   firstName: string;
@@ -27,7 +28,6 @@ function App() {
       .then(response => response.json())
       .then(data => {
         setUser(data.user)
-
       })
       .catch(error => {
         console.error('Error:', error);
@@ -36,14 +36,23 @@ function App() {
   }, []);
 
 
+
+
   return (
     <BrowserRouter>
+
       <NavBar user={user} />
+
       <Routes>
+        <Route path="/" element={<RequireAuth>
+          <UserDashBoard user={user} />
+        </RequireAuth>} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/terms" element={<Terms />} />
-        <Route path="/dashboard" element={<UserDashBoard user={user} />} />
+        <Route path="/dashboard" element={<RequireAuth>
+          <UserDashBoard user={user} />
+        </RequireAuth>} />
       </Routes>
       <Footer />
     </BrowserRouter>
