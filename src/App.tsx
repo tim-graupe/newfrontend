@@ -1,22 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Login from './auth/Login';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Register } from './auth/Register';
+import { Terms } from './auth/Terms';
+import { UserDashBoard } from './dashboard/UserDashBoard';
+import { NavBar } from './dashboard/nav/NavBar';
+import Footer from './dashboard/nav/Footer';
+
+export interface User {
+  firstName: string;
+  lastName: string;
+  _id: number
+};
+
+
 function App() {
-  const handleLogin = () => {
-    // Redirect the user to the server-side login route
-    window.location.href = 'http://localhost:4000/auth/google';
-  };
-
-
+  const [user, setUser] = useState<User | null>(null)
   useEffect(() => {
 
-    fetch("http://localhost:4000/", {
-      credentials: 'include'
+    fetch("http://localhost:4000", {
+      credentials: 'include',
+      mode: 'cors'
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data)
+        setUser(data.user)
 
       })
       .catch(error => {
@@ -25,10 +35,18 @@ function App() {
 
   }, []);
 
+
   return (
-    <div>
-      <Login />
-    </div>
+    <BrowserRouter>
+      <NavBar user={user} />
+      <Routes>
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/dashboard" element={<UserDashBoard user={user} />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   );
 }
 

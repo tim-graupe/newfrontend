@@ -1,13 +1,33 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/tw-elements-react/dist/js/**/*.js",
-  ],
-  theme: {
-    extend: {},
-  },
+  important: true,
+  // Active dark mode on class basis
   darkMode: "class",
-  plugins: [require("tw-elements-react/dist/plugin.cjs")],
+  i18n: {
+    locales: ["en-US"],
+    defaultLocale: "en-US",
+  },
+  purge: {
+    content: ["./pages/**/*.tsx", "./components/**/*.tsx"],
+    // These options are passed through directly to PurgeCSS
+  },
+  theme: {
+    extend: {
+      backgroundImage: (theme) => ({
+        check: "url('/icons/check.svg')",
+        landscape: "url('/images/landscape/2.jpg')",
+      }),
+    },
+  },
+  variants: {
+    extend: {
+      backgroundColor: ["checked"],
+      borderColor: ["checked"],
+      inset: ["checked"],
+      zIndex: ["hover", "active"],
+    },
+  },
+  plugins: [],
+  future: {
+    purgeLayersByDefault: true,
+  },
 };
