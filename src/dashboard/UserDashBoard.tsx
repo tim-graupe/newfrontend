@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import NewPost from './NewPost';
+import { NewPost } from './NewPost';
 
 interface User {
     firstName: string;
     lastName: string;
-    _id: number;
+    _id: string;
 }
 
 interface Props {
@@ -28,7 +28,6 @@ export const UserDashBoard: React.FC<Props> = (props) => {
     const { user } = props;
 
     if (!user) {
-        // If user is null, you might want to handle this case or return alternative content
         return <div>Loading...</div>;
     }
 
@@ -38,7 +37,7 @@ export const UserDashBoard: React.FC<Props> = (props) => {
                 {greeting}, {user.firstName}!
             </h4>
 
-            <NewPost />
+            <NewPost user={user._id} content='' profile={user._id} />
         </div>
     );
 };

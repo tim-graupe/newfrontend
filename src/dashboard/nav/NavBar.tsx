@@ -6,7 +6,7 @@ import "./style.css"
 interface User {
     firstName: string;
     lastName: string;
-    _id: number;
+    _id: string;
 }
 
 

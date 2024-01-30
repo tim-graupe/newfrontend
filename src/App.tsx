@@ -13,7 +13,7 @@ import { RequireAuth } from './auth/RequireAuth';
 export interface User {
   firstName: string;
   lastName: string;
-  _id: number
+  _id: string
 };
 
 
