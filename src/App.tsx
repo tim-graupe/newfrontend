@@ -9,11 +9,15 @@ import { UserDashBoard } from './dashboard/UserDashBoard';
 import { NavBar } from './dashboard/nav/NavBar';
 import Footer from './dashboard/nav/Footer';
 import { RequireAuth } from './auth/RequireAuth';
+import { UserProfile } from './components/profile/UserProfile';
 
 export interface User {
   firstName: string;
   lastName: string;
-  _id: string
+  _id: string;
+  incomingFriendRequests: Array<string>;
+  outgoingFriendRequests: Array<string>;
+  friends: Array<string>
 };
 
 
@@ -52,6 +56,9 @@ function App() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/dashboard" element={<RequireAuth>
           <UserDashBoard user={user} />
+        </RequireAuth>} />
+        <Route path="/user/:id" element={<RequireAuth>
+          <UserProfile user={user} />
         </RequireAuth>} />
       </Routes>
       <Footer />
