@@ -104,14 +104,36 @@ const Timeline: React.FC<TimelineProps> = ({ userId }) => {
                     .sort((a, b) => new Date(b.date_posted).getTime() - new Date(a.date_posted).getTime())
                     .map((post) => {
                         return (
-                            <li key={post._id}>
+                            <li key={post._id} className="mb-6">
                                 <div className="flex items-center flex-start">
-                                    <div className="-ml-[9px] -mt-2 mr-3 flex h-4 w-4 items-center justify-center rounded-full bg-primary dark:bg-primary-500"></div> <img
+                                    <div className="-ml-[9px] -mt-2 mr-3 flex h-4 w-4 items-center justify-center rounded-full bg-primary dark:bg-primary-500"></div>
+                                    <img
                                         src={post.user.profile_pic}
                                         alt="profile pic"
                                         className="w-12 rounded-full"
                                     />
-                                    <h4 className="-mt-2 text-xl font-semibold">     {post.user.firstName} {post.user.lastName}</h4>
+                                    <h4 className="ml-2 -mt-2 text-xl font-semibold whitespace-nowrap">
+                                        {post.user.firstName} {post.user.lastName}
+                                        {post.user._id !== post.profile._id && (
+                                            <>
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    strokeWidth={1.5}
+                                                    stroke="currentColor"
+                                                    className="inline-block w-6 h-6 ml-1"
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                                                    />
+                                                </svg>
+                                                {post.profile.firstName} {post.profile.lastName}
+                                            </>
+                                        )}
+                                    </h4>
                                 </div>
                                 <div className="pb-6 mb-6 ml-6 text-start">
                                     <a

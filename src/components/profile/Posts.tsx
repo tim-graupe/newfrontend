@@ -91,7 +91,7 @@ export const Posts: React.FC<Props> = ({ posts }: Props) => {
 
     return (
         <div>
-            <h2>Posts</h2>
+            <h4 className="mt-0 mb-2 text-2xl font-medium leading-tight text-primary">Posts</h4>
             <ol className="border-l-2 border-primary dark:border-primary-500">
                 {posts
                     .sort((a, b) => new Date(b.date_posted).getTime() - new Date(a.date_posted).getTime())
