@@ -1,7 +1,7 @@
 import React, { useEffect, useState, ChangeEvent } from "react";
 import { Link, useFetcher, useParams } from "react-router-dom";
-// import config from "../config";
-// import "../styles/navBar.css";
+import config from "../../config";
+import "./style.css"
 import { TERipple } from 'tw-elements-react';
 interface User {
     _id: string;
@@ -24,18 +24,18 @@ export const SearchUser: React.FC = () => {
     const [searchName, setSearchName] = useState<string>("");
     const [results, setResults] = useState<SearchResult[]>([]);
     const id = useParams().id;
-    //   const apiUrl =
-    //     process.env.NODE_ENV === "development"
-    //       ? config.development.apiUrl
-    //       : config.production.apiUrl;
+    const apiUrl =
+        process.env.NODE_ENV === "development"
+            ? config.development.apiUrl
+            : config.production.apiUrl;
 
-    // useEffect(() => {
-    //     handleSearch();
-    // }, [searchName]);
+    useEffect(() => {
+        handleSearch();
+    }, [searchName]);
 
-    // useEffect(() => {
-    //     setResults([]);
-    // }, [id]);
+    useEffect(() => {
+        setResults([]);
+    }, [id]);
 
     const handleSearch = async () => {
         fetch(`http://localhost:4000/search?name=${searchName}`, {
@@ -87,7 +87,7 @@ export const SearchUser: React.FC = () => {
                 </div>
             </div>
             <div className="search-results">
-                {results.map((result, index) => (
+                {Array.isArray(results) && results.map((result, index) => (
                     <div key={index} className="search-result-user-card">
                         {result.user && (
                             <Link to={`/user/${result.user._id}`} className="user-card">

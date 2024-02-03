@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { TERipple } from "tw-elements-react";
-import "../style.css"
+import "./style.css"
 // import { Bio } from "./userDash/bio";
 // import { FriendsList } from "./userDash/friendsList";
 // import { Timeline } from "./userDash/timeline";

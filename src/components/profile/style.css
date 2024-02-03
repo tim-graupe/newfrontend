@@ -1,0 +1,144 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 columns */
+}
+
+.grid-item {
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.timeline-post p {
+    margin: 0;
+}
+
+sub {
+    font-size: 14px;
+    color: #777;
+}
+
+button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+#comment {
+    width: 100%;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.timeline-individual-comment-card,
+.friends-container,
+.bio-container {
+    /* margin-left: 5px; */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.timeline-post {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+}
+
+.new-post-text-area {
+    border: 1px solid #2980b9;
+    border-radius: 5px;
+    padding: 10px;
+    width: 10%;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+.new-post-text-area:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+
+/* Keyframes for the "Post sent!" animation */
+@keyframes floatAway {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
+
+/* Apply the keyframes to the "Post sent!" message */
+.post-sent-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    animation: floatAway 2s ease-in-out;
+    z-index: 1;
+}
+
+.post-sent-message.hide {
+    display: none;
+}
+
+@keyframes floatAway {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
+
+/* Apply the keyframes to the floating symbol */
+.material-symbols-outlined {
+    /* Your existing styles for the symbol */
+    position: absolute;
+    font-size: 24px;
+    /* Adjust the font size as needed */
+    animation: floatAway 2s ease-in-out;
+    z-index: 1;
+}
+
+/* Hide the floating symbol initially */
+.material-symbols-outlined.hide {
+    display: none;
+}
