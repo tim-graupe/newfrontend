@@ -1,8 +1,8 @@
-import React, { useEffect, useState, ChangeEvent } from "react";
-import { Link, useFetcher, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import config from "../../config";
-import "./style.css"
-import { TERipple } from 'tw-elements-react';
+
+
 interface User {
     _id: string;
     profile_pic: string;
@@ -20,10 +20,12 @@ interface SearchResult {
     group?: Group;
 }
 
+// ... (previous imports and components)
+
 export const SearchUser: React.FC = () => {
     const [searchName, setSearchName] = useState<string>("");
-    const [results, setResults] = useState<SearchResult[]>([]);
-    const id = useParams().id;
+    const [results, setResults] = useState<SearchResult>({});
+    const { id } = useParams<{ id?: string }>();
     const apiUrl =
         process.env.NODE_ENV === "development"
             ? config.development.apiUrl
@@ -34,17 +36,25 @@ export const SearchUser: React.FC = () => {
     }, [searchName]);
 
     useEffect(() => {
-        setResults([]);
+        setResults({});
     }, [id]);
 
     const handleSearch = async () => {
-        fetch(`http://localhost:4000/search?name=${searchName}`, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-            .then((response) => response.json())
-            .then((response) => setResults(response));
+        try {
+            const response = await fetch(`${apiUrl}/search?name=${searchName}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            const responseData = await response.json();
+            setResults(responseData);
+        } catch (error) {
+            console.error("Error fetching search results:", error);
+        }
+    };
+
+    const clearResults = () => {
+        setResults({});
     };
 
     useEffect(() => {
@@ -54,57 +64,49 @@ export const SearchUser: React.FC = () => {
         }
     }, [searchName]);
 
-
     return (
         <div id="search-container">
-            <div className="mb-3 md:w-96">
-                <div className="relative flex flex-wrap items-stretch w-full mb-4">
-                    <input
-                        type="search"
-                        className="relative m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
-                        placeholder="Search"
-                        aria-label="Search"
-                        aria-describedby="button-addon1" />
-
-                    {/* <!--Search button--> */}
-                    <TERipple color='light'>
-                        <button
-                            className="relative z-[2] flex items-center rounded-r bg-primary px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
-                            type="button"
-                            id="button-addon1">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                className="w-5 h-5">
-                                <path
-                                    fillRule="evenodd"
-                                    d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-                                    clipRule="evenodd" />
-                            </svg>
-                        </button>
-                    </TERipple>
-                </div>
-            </div>
+            <input
+                id="name-search"
+                type="text"
+                style={{ color: "black" }}
+                value={searchName}
+                onChange={(e) => setSearchName(e.target.value)}
+                placeholder="Search for a user or group"
+            />
+            {/* <button onClick={handleSearch}>Search</button> */}
             <div className="search-results">
-                {Array.isArray(results) && results.map((result, index) => (
-                    <div key={index} className="search-result-user-card">
-                        {result.user && (
-                            <Link to={`/user/${result.user._id}`} className="user-card">
-                                <img src={result.user.profile_pic} alt="profile pic" />
-                                <p>
-                                    {result.user.firstName} {result.user.lastName}
-                                </p>
-                            </Link>
-                        )}
-                        {result.group && (
-                            <Link to={`/group/${result.group._id}`} className="user-card">
-                                <p>{result.group.name}</p>
-                            </Link>
-                        )}
+                {results.user && (
+                    <div className="user-card">
+                        <Link
+                            to={`/user/${results.user._id}`}
+                            className="search-result-user-card"
+                            key={results.user._id}
+                            onClick={clearResults}
+                        >
+
+                            <img src={results.user.profile_pic} alt="profile pic" />
+                            <p>
+                                {results.user.firstName} {results.user.lastName}
+                            </p>
+                        </Link>
                     </div>
-                ))}
+
+                )}
+                {/* {results.group && (
+                    <Link
+                        to={`/group/${results.group._id}`}
+                        className="search-result-user-card"
+                        key={results.group._id}
+                        onClick={clearResults}
+                    >
+                        <div className="user-card">
+                            <p>{results.group.name}</p>
+                        </div>
+                    </Link>
+                )} */}
             </div>
         </div>
     );
 };
+
