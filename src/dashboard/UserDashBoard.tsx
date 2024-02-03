@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NewPost } from './NewPost';
+import Timeline from './TimeLine';
 
 interface User {
     firstName: string;
@@ -32,12 +33,14 @@ export const UserDashBoard: React.FC<Props> = (props) => {
     }
 
     return (
-        <div>
+        <div className="flex flex-col items-center justify-center w-2/3 timeline-container">
             <h4 className="mt-0 mb-2 text-2xl font-medium leading-tight text-primary">
                 {greeting}, {user.firstName}!
             </h4>
 
             <NewPost user={user._id} content='' profile={user._id} />
+            <Timeline userId={user._id} />
         </div>
+
     );
 };
