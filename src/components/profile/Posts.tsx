@@ -163,13 +163,7 @@ export const Posts: React.FC<Props> = ({ posts }: Props) => {
                                         ? `${post.likes.length} like`
                                         : `${post.likes.length} likes`}
                                 </sub>
-                                <sub> {new Date(post.date_posted).toLocaleString('en-US', {
-                                    year: '2-digit',
-                                    month: 'short',
-                                    day: 'numeric',
-                                    hour: 'numeric',
-                                    minute: 'numeric',
-                                })}</sub>
+
                                 <div className="comments-container">
                                     <Comment comments={post.comments} />
                                 </div>

@@ -81,6 +81,7 @@ export const SearchUser: React.FC = () => {
                         <Link
                             to={`/user/${results.user._id}`}
                             className="search-result-user-card"
+                            aria-current="true"
                             key={results.user._id}
                             onClick={clearResults}
                         >
