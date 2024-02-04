@@ -34,7 +34,6 @@ export const NavBar: React.FC<Props> = (props) => {
             <a href="/dashboard">Home</a>
             {/* <a href={`/user/${props._id}`}>My Profile</a> */}
             <div className="container" onClick={handleShowFriendReqs}>
-                <span className="material-symbols-rounded">person_add</span>
                 {/* {props.incomingFriendRequests && (
                     <div
                         className="incoming-friend-requests-container"

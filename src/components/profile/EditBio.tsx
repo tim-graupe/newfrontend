@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { TEInput, TERipple } from 'tw-elements-react';
+import config from '../../config';
 
 interface BioProps {
     user: User;
+
 }
 
 interface User {
+    _id: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -25,8 +28,63 @@ interface User {
 }
 
 const EditBio: React.FC<BioProps> = ({ user }: BioProps) => {
-    const handleSubmit = () => {
-        // Handle form submission
+    const [formData, setFormData] = useState({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        profile_pic: user.profile_pic,
+        relationship: user.relationship,
+        partner: user.partner,
+        politics: user.politics,
+        high_school: user.high_school,
+        college: user.college,
+        current_city: user.current_city,
+        home_town: user.home_town,
+        occupation: user.occupation,
+        employer: user.employer,
+        dob: user.dob
+    });
+
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
+    };
+
+    const handleChangeSelect = (
+        e: ChangeEvent<HTMLSelectElement>
+    ) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
+    };
+
+    const currentDate = new Date().toISOString().split('T')[0];
+    const apiUrl =
+        process.env.NODE_ENV === "development"
+            ? config.development.apiUrl
+            : config.production.apiUrl;
+
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+
+        try {
+            const response = await fetch(`${apiUrl}/user/${user._id}/bio`, {
+                method: "PUT",
+                credentials: 'include',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                console.log("formData", formData)
+            } else {
+                const error = await response.json();
+                console.log(error);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
     };
 
     return (
@@ -35,39 +93,71 @@ const EditBio: React.FC<BioProps> = ({ user }: BioProps) => {
                 <div className="grid grid-cols-2 gap-4">
                     {/* First name input */}
                     <TEInput
+                        name="firstName"
                         type="text"
                         label="First name"
                         className="mb-6"
-                        value={user.firstName}
+                        onChange={handleChange}
                     />
 
                     {/* Last name input */}
                     <TEInput
                         type="text"
+                        name='lastName'
                         label="Last name"
                         className="mb-6"
-                        value={user.lastName}
+                        onChange={handleChange}
+
                     />
                 </div>
 
-                {/* Email input */}
+                <p>Birthday</p>
                 <TEInput
-                    type="email"
-                    label="Email address"
-                    className="mb-6"
-                    value={user.email}
-                />
+                    type="date"
+                    name="dob"
+                    className="shadow-none form-control"
+                    aria-describedby="button-addon2"
+                    onChange={handleChange}
 
-                {/* Password input */}
+                    max={currentDate}
+                />
+                <p>Relationship Status</p>
                 <TEInput
-                    type="password"
-                    label="Password"
+                    type="text"
+                    name='relationship'
+                    // label="Relationship"
                     className="mb-6"
-                    value={user.password}
+                    onChange={handleChange}
+
                 />
+                <p>Home Town</p>
+                <TEInput
+                    type="text"
+                    name="home_town"
+                    onChange={handleChange}
 
-                {/* Additional TEInput components for other user properties */}
+                />
+                <p>Current City</p>
+                <TEInput
+                    type="text"
+                    name="current_city"
+                    onChange={handleChange}
 
+                />
+                <p>High School</p>
+                <TEInput
+                    type="text"
+                    name="high_school"
+                    onChange={handleChange}
+
+                />
+                <p>College</p>
+                <TEInput
+                    type="text"
+                    name="college"
+                    onChange={handleChange}
+
+                />
 
                 {/* Submit button */}
                 <TERipple rippleColor="light" className="w-full">

@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
-import { TECollapse } from 'tw-elements-react';
+import React, { useState, useEffect } from 'react';
+import {
+    TECollapse, TERipple,
+    TEModal,
+    TEModalDialog,
+    TEModalContent,
+    TEModalHeader,
+    TEModalBody,
+    TEModalFooter,
+} from 'tw-elements-react';
+import EditBio from './EditBio';
 
 interface BioProps {
     user: User;
 }
 
 interface User {
+    _id: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -25,7 +35,9 @@ interface User {
 }
 
 const Bio: React.FC<BioProps> = ({ user }: BioProps) => {
+    const [showModal, setShowModal] = useState(false);
     const [activeElement, setActiveElement] = useState("");
+    const [userId, setUserId] = useState('')
 
     const handleClick = (value: string) => {
         if (value === activeElement) {
@@ -35,10 +47,83 @@ const Bio: React.FC<BioProps> = ({ user }: BioProps) => {
         }
     };
 
+    useEffect(() => {
+        const getUserPosts = () => {
+            fetch(`http://localhost:4000/`, {
+                credentials: "include",
+            })
+                .then((res) => res.json())
+                .then((res) => setUserId(res.user._id));
+        };
+
+        getUserPosts();
+    }, []);
+
     return (
         <>
             <h4 className="mt-0 mb-2 text-2xl font-medium leading-tight text-primary">
-                About {user.firstName}            </h4>
+                About {user.firstName}  {user._id === userId ? <div>
+                    {/* <!-- Button trigger modal --> */}
+                    <TERipple rippleColor="white">
+                        <button
+                            type="button"
+                            className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                            onClick={() => setShowModal(true)}
+                        >
+                            Edit Details
+                        </button>
+                    </TERipple>
+
+                    {/* <!-- Modal --> */}
+                    <TEModal show={showModal} setShow={setShowModal}>
+                        <TEModalDialog>
+                            <TEModalContent>
+                                <TEModalHeader>
+                                    {/* <!--Modal title--> */}
+                                    <h5 className="text-xl font-medium leading-normal text-neutral-800 dark:text-neutral-200">
+                                        Edit Info
+                                    </h5>
+                                    {/* <!--Close button--> */}
+                                    <button
+                                        type="button"
+                                        className="box-content border-none rounded-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
+                                        onClick={() => setShowModal(false)}
+                                        aria-label="Close"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="1.5"
+                                            stroke="currentColor"
+                                            className="w-6 h-6"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M6 18L18 6M6 6l12 12"
+                                            />
+                                        </svg>
+                                    </button>
+                                </TEModalHeader>
+                                {/* <!--Modal body--> */}
+                                <TEModalBody><EditBio user={user} /></TEModalBody>
+                                <TEModalFooter>
+                                    <TERipple rippleColor="light">
+                                        <button
+                                            type="button"
+                                            className="inline-block rounded bg-primary-100 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-primary-700 transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200"
+                                            onClick={() => setShowModal(false)}
+                                        >
+                                            Close
+                                        </button>
+                                    </TERipple>
+
+                                </TEModalFooter>
+                            </TEModalContent>
+                        </TEModalDialog>
+                    </TEModal>
+                </div> : null}          </h4>
             <div id="accordionExample">
                 <div className="bg-white border border-t-0 border-l-0 border-r-0 rounded-none border-neutral-200 dark:border-neutral-600 dark:bg-neutral-800">
                     <h2 className="mb-0" id="headingOne">

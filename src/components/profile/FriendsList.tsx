@@ -17,6 +17,7 @@ export const FriendsList: React.FC<Props> = ({ user }: Props) => {
     }
 
     const { friends, firstName } = user!;
+
     return (
         <div>
             <h6 className="mt-0 mb-2 text-base font-medium leading-tight text-primary">
