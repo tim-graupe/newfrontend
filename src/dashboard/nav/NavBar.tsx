@@ -2,7 +2,7 @@ import React, { useState, MouseEvent, useEffect } from "react";
 import { SearchUser } from "./SearchUser";
 import { FriendReqs } from "./FriendRequestsList";
 import config from "../../config";
-import "./style.css";
+import "../style.css";
 import { Link } from "react-router-dom";
 
 interface User {
@@ -59,7 +59,7 @@ export const NavBar: React.FC<Props> = (props) => {
                 <Link to={"/dashboard"}>Dashboard</Link>
                 <Link to={`/user/${props.user?._id}`}>Profile</Link>
                 <div>
-                    {/* <FriendReqs friendReqsList={friendReqsList} /> */}
+                    <FriendReqs friendReqsList={friendReqsList} />
                 </div>
                 <a href="/log-out">Logout</a>
             </div>

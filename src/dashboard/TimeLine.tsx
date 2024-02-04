@@ -98,7 +98,7 @@ const Timeline: React.FC<TimelineProps> = ({ userId }) => {
     };
 
     return (
-        <div>
+        <div className="timeline-container">
             <ol className="border-l-2 border-primary dark:border-primary-500">
                 {posts
                     .sort((a, b) => new Date(b.date_posted).getTime() - new Date(a.date_posted).getTime())
@@ -200,7 +200,11 @@ const Timeline: React.FC<TimelineProps> = ({ userId }) => {
                                     minute: 'numeric',
                                 })}</sub>
                                 <div className="comments-container">
-                                    <Comment comments={post.comments} />
+                                    {post.comments.length > 0 && (
+                                        <div className="comments-container">
+                                            <Comment comments={post.comments} />
+                                        </div>
+                                    )}
                                 </div>
                             </li>
                         )

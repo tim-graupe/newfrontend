@@ -43,8 +43,8 @@ function App() {
 
   return (
     <BrowserRouter>
+      {user ? <NavBar user={user} /> : null}
 
-      <NavBar user={user} />
 
       <Routes>
         <Route path="/" element={<RequireAuth>

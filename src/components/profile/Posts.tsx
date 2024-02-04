@@ -99,7 +99,7 @@ export const Posts: React.FC<Props> = ({ posts }: Props) => {
                         return (
                             <li key={post._id}>
                                 <div className="flex items-center flex-start">
-                                    <div className="-ml-[9px] -mt-2 mr-3 flex h-4 w-4 items-center justify-center rounded-full bg-primary dark:bg-primary-500"></div> <img
+                                    <div className="-ml-[9px] -mt-2 mr-3 flex h-4 w-4 items-center justify-center rounded-full bg-primary dark:bg-primary-500" onClick={() => console.log(post._id)}></div> <img
                                         src={post.user.profile_pic}
                                         alt="profile pic"
                                         className="w-12 rounded-full"
@@ -164,9 +164,12 @@ export const Posts: React.FC<Props> = ({ posts }: Props) => {
                                         : `${post.likes.length} likes`}
                                 </sub>
 
-                                <div className="comments-container">
-                                    <Comment comments={post.comments} />
-                                </div>
+                                {post.comments.length > 0 && (
+                                    <div className="comments-container">
+                                        <Comment comments={post.comments} />
+                                    </div>
+                                )}
+
                             </li>
                         )
                     })}

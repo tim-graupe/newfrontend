@@ -33,8 +33,8 @@ export const UserDashBoard: React.FC<Props> = (props) => {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center w-2/3 timeline-container">
-            <h4 className="mt-0 mb-2 text-2xl font-medium leading-tight text-primary">
+        <div>
+            <h4 className="mt-0 mb-2 text-2xl font-medium leading-tight text-center text-primary">
                 {greeting}, {user.firstName}!
             </h4>
 

@@ -7,6 +7,8 @@
     color: white;
 }
 
+
+
 .hamburger {
     cursor: pointer;
     display: none;
@@ -29,6 +31,20 @@
     text-decoration: none;
     margin-left: 10px;
 }
+
+/* timline */
+.timeline-container,
+.new-post-container {
+    width: 66%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.timeline-content {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
 
 @media (max-width: 768px) {
     .hamburger {
