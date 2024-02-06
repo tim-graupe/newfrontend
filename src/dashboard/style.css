@@ -7,7 +7,9 @@
     color: white;
 }
 
-
+p {
+    white-space: pre-wrap
+}
 
 .hamburger {
     cursor: pointer;

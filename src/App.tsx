@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import logo from './logo.svg';
+import './App.css';
 import Login from './auth/Login';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Register } from './auth/Register';
@@ -43,8 +45,8 @@ function App() {
 
   return (
     <BrowserRouter>
-      {user ? <NavBar user={user} /> : null}
 
+      <NavBar user={user} />
 
       <Routes>
         <Route path="/" element={<RequireAuth>

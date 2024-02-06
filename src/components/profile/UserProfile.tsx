@@ -2,18 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { TERipple } from "tw-elements-react";
 import "./style.css"
-// import { Bio } from "./userDash/bio";
-// import { FriendsList } from "./userDash/friendsList";
-// import { Timeline } from "./userDash/timeline";
-// import { NavBar } from "./nav";
-// import { NewPost } from "./newPost";
 import config from "../../config";
 import Bio from "./Bio";
 import { FriendsList } from "./FriendsList";
 import { Posts } from "./Posts";
 import { NewPost } from "../../dashboard/NewPost";
 import { ConfirmDelete } from "../ConfirmDeleteFriend";
-// import { GroupList } from "./profileGroupList";
 
 interface User {
     firstName: string;
@@ -53,17 +47,7 @@ export const UserProfile: React.FC<Props> = (props) => {
         getUserPosts();
     }, [apiUrl, id]);
 
-    async function getUser() {
-        try {
-            const response = await fetch(`${apiUrl}`, {
-                credentials: "include",
-            });
-            const data = await response.json();
-            console.log(data);
-        } catch (error) {
-            console.error("Error fetching user:", error);
-        }
-    }
+
 
 
     const acceptFriend = (_id: string) => {
@@ -121,8 +105,20 @@ export const UserProfile: React.FC<Props> = (props) => {
                 console.error("Error fetching user:", error);
             }
         }
+        async function getUser() {
+            try {
+                const response = await fetch(`${apiUrl}`, {
+                    credentials: "include",
+                });
+                const data = await response.json();
+                setLoggedUser(data.user);
+            } catch (error) {
+                console.error("Error fetching user:", error);
+            }
+        }
 
         fetchUser();
+        getUser()
     }, [apiUrl, id]);
 
     return (
@@ -195,7 +191,7 @@ export const UserProfile: React.FC<Props> = (props) => {
             <div className="grid-item"><FriendsList user={{ firstName: user.firstName, friends: user.friends }} /></div>
             <div className="grid-item">
                 <NewPost user={user._id} content='' profile={id} />
-                <Posts posts={posts} /></div>
+                <Posts posts={posts} loggedUser={loggedUser} /></div>
             {/* <div className="grid-item">7</div>
             <div className="grid-item">8</div> */}
         </div>
