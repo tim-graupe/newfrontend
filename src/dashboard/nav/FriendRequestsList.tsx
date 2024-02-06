@@ -1,4 +1,5 @@
 import React from "react";
+import config from "../../config";
 import {
     TEDropdown,
     TEDropdownToggle,
@@ -11,6 +12,39 @@ interface FriendReqsProps {
 }
 
 export const FriendReqs: React.FC<FriendReqsProps> = ({ friendReqsList }) => {
+    const apiUrl =
+        process.env.NODE_ENV === "development"
+            ? config.development.apiUrl
+            : config.production.apiUrl;
+
+    const acceptFriend = (_id: string) => {
+        console.log(_id)
+        fetch(`${apiUrl}/acceptFriendReq/${_id}`, {
+            credentials: "include",
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                RequestingFriendsId: _id,
+            }),
+        });
+    };
+
+    const rejectFriend = (_id: string) => {
+        fetch(`${apiUrl}/rejectFriendReq/${_id}`, {
+            credentials: "include",
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                RequestingFriendsId: _id,
+            }),
+        });
+    };
 
     return (
         <TEDropdown>
@@ -48,14 +82,16 @@ export const FriendReqs: React.FC<FriendReqsProps> = ({ friendReqsList }) => {
                             <button
                                 type="button"
                                 className="inline-block rounded bg-primary-700 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                                onClick={() => acceptFriend(req._id)}
                             >
-                                Primary
+                                Accept
                             </button>
                             <button
                                 type="button"
                                 className="inline-block rounded bg-primary-accent-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-primary-700 transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200"
+                                onClick={() => rejectFriend(req._id)}
                             >
-                                Secondary
+                                Reject
                             </button>
                         </div>
                     </TEDropdownItem>
