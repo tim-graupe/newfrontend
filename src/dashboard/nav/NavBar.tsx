@@ -30,6 +30,8 @@ export const NavBar: React.FC<Props> = (props) => {
         setIsMenuOpen(!isMenuOpen);
     };
 
+
+
     useEffect(() => {
         const getFriendRequests = () => {
             fetch(`${apiUrl}/getFriendReqs/${props.user?._id}`, {
@@ -61,7 +63,7 @@ export const NavBar: React.FC<Props> = (props) => {
                 <div>
                     <FriendReqs friendReqsList={friendReqsList} />
                 </div>
-                <a href="/log-out">Logout</a>
+                <Link to={"/logout"}>Logout</Link>
             </div>
         </div>
     );

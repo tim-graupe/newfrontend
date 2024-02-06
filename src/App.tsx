@@ -11,6 +11,7 @@ import Footer from './dashboard/nav/Footer';
 import { RequireAuth } from './auth/RequireAuth';
 import { UserProfile } from './components/profile/UserProfile';
 import { NotFound } from './NotFound';
+import { Logout } from './auth/Logout';
 
 export interface User {
   firstName: string;
@@ -61,6 +62,7 @@ function App() {
         <Route path="/user/:id" element={<RequireAuth>
           <UserProfile user={user} />
         </RequireAuth>} />
+        <Route path="/logout" element={<Logout />} />
         <Route path="*" element={<NotFound />} />
 
       </Routes>
