@@ -41,6 +41,30 @@ export default function Login(): JSX.Element {
             });
     };
 
+    const handleGuestLogin = (e: React.FormEvent) => {
+        e.preventDefault();
+        fetch(`http://localhost:4000/login`, {
+            method: "POST",
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: "test@test.com", password: "testtest" }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.error) {
+                    console.log(data);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+
     return (
 
         <section className="h-screen">
@@ -90,17 +114,17 @@ export default function Login(): JSX.Element {
                                         className="inline-block pl-[0.15rem] hover:cursor-pointer"
                                         htmlFor="exampleCheck3"
                                     >
-                                        Remember me
+                                        Remember me (not active)
                                     </label>
                                 </div>
 
                                 {/* <!-- Forgot password link --> */}
-                                <a
+                                {/* <a
                                     href="#!"
                                     className="transition duration-150 ease-in-out text-primary hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600"
                                 >
                                     Forgot password?
-                                </a>
+                                </a> */}
                             </div>
 
                             {/* <!-- Submit button --> */}
@@ -115,8 +139,16 @@ export default function Login(): JSX.Element {
                                 </button>
                             </TERipple>
 
+                            <button
+                                type="button"
+                                className="mb-2 block w-full rounded border-2 border-primary px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+                                onClick={handleGuestLogin}
+                            >
+                                Just visiting? Click here for a guest account
+                            </button>
                             {/* <!-- Divider --> */}
                             <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
+
                                 <p className="mx-4 mb-0 font-semibold text-center dark:text-neutral-200">
                                     OR
                                 </p>
@@ -124,6 +156,7 @@ export default function Login(): JSX.Element {
                             <GoogleButton
                                 onClick={handleGoogleLogin}
                             />
+
 
                         </form>
                     </div>
