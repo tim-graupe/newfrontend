@@ -10,6 +10,7 @@ interface RegisterData {
     password: string;
     email: string;
     dob: string;
+    profile_pic: File | null
 }
 
 export const Register: React.FC = () => {
@@ -19,6 +20,7 @@ export const Register: React.FC = () => {
     const [password, setPassword] = useState<string>("");
     const [message, setMessage] = useState<string>("");
     const [dob, setDob] = useState<string>("");
+    const [profile_pic, setPic] = useState<File | null>(null)
 
     // const apiUrl =
     //     process.env.NODE_ENV === "development"
@@ -31,6 +33,7 @@ export const Register: React.FC = () => {
         email,
         password,
         dob,
+        profile_pic
 
     };
 
@@ -39,32 +42,47 @@ export const Register: React.FC = () => {
         window.location.href = 'http://localhost:4000/auth/google';
     };
 
-    const submit = async () => {
+    const handlePhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = e.target.files && e.target.files.length > 0 ? e.target.files[0] : null;
+
+        if (selectedFile) {
+            setPic(selectedFile);
+        }
+    };
+
+    const submit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         try {
+            const formData = new FormData();
+            formData.append("firstName", firstName);
+            formData.append("lastName", lastName);
+            formData.append("email", email);
+            formData.append("password", password);
+            formData.append("dob", dob);
+
+            if (profile_pic && profile_pic.name) {
+                formData.append("profile_pic", profile_pic);
+            }
+
             const response = await fetch(`http://localhost:4000/register`, {
                 mode: "cors",
                 method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(jsonData),
-
+                body: formData,
             });
 
             if (!response.ok) {
-                // throw new Error(`Server responded with status ${response.status}`);
-                console.log(response)
+                console.log(response);
             }
 
             const data = await response.json();
-            console.log(data)
-            setMessage(data.error)
+            console.log(data);
+            setMessage(data.error);
         } catch (error) {
             console.error("Error during fetch:", error);
-            // setMessage("An error occurred. Please try again later.");
         }
     };
+
+
 
 
     return (
@@ -82,8 +100,7 @@ export const Register: React.FC = () => {
 
                     {/* <!-- Right column container --> */}
                     <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
-                        <form>
-                            {/* <!--Sign in section--> */}
+                        <form onSubmit={submit} encType="multipart/form-data">                            {/* <!--Sign in section--> */}
                             <div className="flex flex-row items-center justify-center lg:justify-start">
                                 <p className="mb-0 mr-4 text-lg">Sign up with</p>
 
@@ -115,6 +132,12 @@ export const Register: React.FC = () => {
                                     Or
                                 </p>
                             </div>
+                            <input
+                                type="file"
+                                accept=".png, .jpg, .jpeg"
+                                name="profile_pic"
+                                onChange={handlePhoto}
+                            />
 
                             {/* Name input */}
                             <TEInput type="text"
@@ -172,12 +195,7 @@ export const Register: React.FC = () => {
                             {/* <!-- Login button --> */}
                             <div className="text-center lg:text-left">
                                 <TERipple rippleColor="light">
-                                    <button onClick={submit}
-                                        type="button"
-                                        className="inline-block rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-                                    >
-                                        Register
-                                    </button>
+                                    <input type="submit" />
                                 </TERipple>
                                 <p>{message}</p>
                                 {/* <!-- Register link --> */}
