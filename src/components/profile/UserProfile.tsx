@@ -125,9 +125,11 @@ export const UserProfile: React.FC<Props> = (props) => {
         <div className="grid-container">
             <div className="grid-item">    <div className="text-center">
                 <img
-                    src={user.profile_pic}
+                    src={`http://localhost:4000/images/${user.profile_pic}`}
                     className="w-32 mx-auto mb-4 rounded-lg"
-                    alt="Avatar" />
+                    alt="Avatar"
+                />
+
                 <h5 className="mb-2 text-xl font-medium leading-tight">{user.firstName} {user.lastName}</h5>
                 {id !== props.user?._id && (
                     <>
@@ -191,7 +193,7 @@ export const UserProfile: React.FC<Props> = (props) => {
             <div className="grid-item"><FriendsList user={{ firstName: user.firstName, friends: user.friends }} /></div>
             <div className="grid-item">
                 <NewPost user={user._id} content='' profile={id} />
-                <Posts posts={posts} loggedUser={loggedUser} /></div>
+                <Posts posts={posts} loggedUser={loggedUser} user={user} /></div>
             {/* <div className="grid-item">7</div>
             <div className="grid-item">8</div> */}
         </div>

@@ -22,7 +22,7 @@ interface Post {
 }
 
 interface NewCommentProps {
-    user: string,
+    user: User,
     profile: string,
     content: string
 
@@ -33,12 +33,13 @@ interface Props {
         _id: string
         firstName: string
     }
+    user: User
 }
 
-export const Posts: React.FC<Props> = ({ posts, loggedUser }) => {
+export const Posts: React.FC<Props> = ({ posts, loggedUser, user }) => {
 
     const [formData, setFormData] = useState<NewCommentProps>({
-        user: 'user',
+        user: user,
         content: '',
         profile: 'profile'
     });
@@ -97,7 +98,7 @@ export const Posts: React.FC<Props> = ({ posts, loggedUser }) => {
 
     return (
         <div>
-            <h4 className="mt-0 mb-2 text-2xl font-medium leading-tight text-primary">{`${loggedUser.firstName}'s Wall`}</h4>
+            <h4 className="mt-0 mb-2 text-2xl font-medium leading-tight text-primary">{`${user.firstName}'s Wall`}</h4>
             <ol className="border-l-2 border-primary dark:border-primary-500">
                 {posts
                     .sort((a, b) => new Date(b.date_posted).getTime() - new Date(a.date_posted).getTime())
