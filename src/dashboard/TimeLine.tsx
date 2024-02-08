@@ -2,6 +2,7 @@ import React, { useEffect, useState, ChangeEvent } from "react";
 import config from "../config";
 import { Comment } from "../components/profile/Comment";
 import { TERipple, TEInput } from "tw-elements-react";
+import ProfilePic from "../components/profile/ProfilePic";
 
 interface TimelineProps {
     userId: string;
@@ -107,11 +108,7 @@ const Timeline: React.FC<TimelineProps> = ({ userId }) => {
                             <li key={post._id} className="mb-6">
                                 <div className="flex items-center flex-start">
                                     <div className="-ml-[9px] -mt-2 mr-3 flex h-4 w-4 items-center justify-center rounded-full bg-primary dark:bg-primary-500"></div>
-                                    <img
-                                        src={post.user.profile_pic}
-                                        alt="profile pic"
-                                        className="w-12 rounded-full"
-                                    />
+                                    <ProfilePic friend={post.user} />
                                     <h4 className="ml-2 -mt-2 text-xl font-semibold whitespace-nowrap">
                                         {post.user.firstName} {post.user.lastName}
                                         {post.user._id !== post.profile._id && (
