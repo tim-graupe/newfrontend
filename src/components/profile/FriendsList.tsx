@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import ProfilePic from './ProfilePic';
 
 
 interface FriendsListI {
@@ -25,10 +26,7 @@ export const FriendsList: React.FC<Props> = ({ user }: Props) => {
             </h6>
             {friends?.map((friend) => {
                 return <Link to={`/user/${friend._id}`} className="text-center" key={friend._id}>
-                    <img
-                        src={friend.profile_pic}
-                        className="w-12 mx-auto mb-4 rounded-full"
-                        alt="Avatar" />
+                    <ProfilePic friend={friend} />
                     <p className="text-neutral-500 dark:text-neutral-400">{friend.firstName} {friend.lastName}</p>
                 </Link>
             })}

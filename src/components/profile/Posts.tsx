@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import config from '../../config';
 import { TERipple, TEInput } from "tw-elements-react";
-import { Link } from 'react-router-dom';
+import { redirect } from 'react-router-dom';
 import { Comment } from './Comment';
 import "./style.css"
 import { ConfirmDeletePost } from './ConfirmDeletePost';
