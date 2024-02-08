@@ -25,6 +25,7 @@ interface Props {
 
 export const UserProfile: React.FC<Props> = (props) => {
     const [isLoading, setIsLoading] = useState(true);
+    const [imageLoaded, setImageLoaded] = useState(false);
     const [loggedUser, setLoggedUser] = useState<any>("");
     const [posts, setPosts] = useState<any[]>([]);
     const [user, setUser] = useState<any>("");
@@ -46,6 +47,17 @@ export const UserProfile: React.FC<Props> = (props) => {
 
         getUserPosts();
     }, [apiUrl, id]);
+
+    useEffect(() => {
+        const img = new Image();
+        img.src = `http://localhost:4000/images/${user.profile_pic}`;
+        img.onload = () => {
+            setImageLoaded(true);
+        };
+        img.onerror = () => {
+            setImageLoaded(false);
+        };
+    }, [user.profile_pic]);
 
 
 
@@ -125,9 +137,9 @@ export const UserProfile: React.FC<Props> = (props) => {
         <div className="grid-container">
             <div className="grid-item">    <div className="text-center">
                 <img
-                    src={`http://localhost:4000/images/${user.profile_pic}`}
+                    src={imageLoaded ? `http://localhost:4000/images/${user.profile_pic}` : user.profile_pic}
                     className="w-32 mx-auto mb-4 rounded-lg"
-                    alt="Avatar"
+                    alt={imageLoaded ? 'Loaded Avatar' : 'Default Avatar'}
                 />
 
                 <h5 className="mb-2 text-xl font-medium leading-tight">{user.firstName} {user.lastName}</h5>

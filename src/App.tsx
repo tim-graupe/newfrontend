@@ -12,6 +12,7 @@ import { RequireAuth } from './auth/RequireAuth';
 import { UserProfile } from './components/profile/UserProfile';
 import { NotFound } from './NotFound';
 import { Logout } from './auth/Logout';
+import { BadUser } from './components/BadUser';
 
 export interface User {
   firstName: string;
@@ -63,6 +64,7 @@ function App() {
           <UserProfile user={user} />
         </RequireAuth>} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/usernotfound" element={<BadUser />} />
         <Route path="*" element={<NotFound />} />
 
       </Routes>

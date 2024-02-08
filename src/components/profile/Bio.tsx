@@ -20,7 +20,7 @@ interface User {
     lastName: string;
     email: string;
     password: string;
-    profile_pic: string;
+    profile_pic: File;
     status: string;
     relationship: string;
     partner: string;
