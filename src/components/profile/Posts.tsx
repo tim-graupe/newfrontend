@@ -5,6 +5,7 @@ import { redirect } from 'react-router-dom';
 import { Comment } from './Comment';
 import "./style.css"
 import { ConfirmDeletePost } from './ConfirmDeletePost';
+import ProfilePic from './ProfilePic';
 interface User {
     _id: string;
     firstName: string;
@@ -123,11 +124,8 @@ export const Posts: React.FC<Props> = ({ posts, loggedUser, user }) => {
                                         </div>
                                     }
 
-                                    <img
-                                        src={post.user.profile_pic}
-                                        alt="profile pic"
-                                        className="w-12 rounded-full"
-                                    />
+                                    <ProfilePic friend={post.user} />
+
                                     <h4 className="-mt-2 text-xl font-semibold">     {post.user.firstName} {post.user.lastName}</h4>
                                 </div>
                                 <div className="pb-6 mb-6 ml-6 text-start">
