@@ -17,6 +17,8 @@ interface Post {
     _id: string;
     content: string;
     date_posted: string;
+    type: string;
+    pic: string;
     user: User;
     comments: Array<string>
     likes: Array<string>
@@ -141,9 +143,14 @@ export const Posts: React.FC<Props> = ({ posts, loggedUser, user }) => {
                                             minute: 'numeric',
                                         })}
                                     </a>
-                                    <p className="mt-2 mb-4 text-neutral-600 dark:text-neutral-300">
-                                        {post.content}
-                                    </p>
+                                    {post.type === "post" || post.type === "newFriend" ? (
+                                        <p className="mt-2 mb-4 text-neutral-600 dark:text-neutral-300">
+                                            {post.content}
+                                        </p>
+                                    ) : (
+                                        <img src={`http://localhost:4000/images/${post.pic}`} alt={`${post.user.firstName}'s post`} />
+                                    )}
+
                                     <TERipple rippleColor="light">
                                         <button onClick={(e) => likePost(post._id)}
                                             type="button"
