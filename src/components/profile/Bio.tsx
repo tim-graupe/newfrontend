@@ -9,7 +9,7 @@ import {
     TEModalFooter,
 } from 'tw-elements-react';
 import EditBio from './EditBio';
-
+import config from '../../config';
 interface BioProps {
     user: User;
 }
@@ -37,7 +37,11 @@ interface User {
 const Bio: React.FC<BioProps> = ({ user }: BioProps) => {
     const [showModal, setShowModal] = useState(false);
     const [activeElement, setActiveElement] = useState("");
-    const [userId, setUserId] = useState('')
+    const [userId, setUserId] = useState('');
+    const apiUrl =
+        process.env.NODE_ENV === "development"
+            ? config.development.apiUrl
+            : config.production.apiUrl;
 
     const handleClick = (value: string) => {
         if (value === activeElement) {
@@ -49,7 +53,7 @@ const Bio: React.FC<BioProps> = ({ user }: BioProps) => {
 
     useEffect(() => {
         const getUserPosts = () => {
-            fetch(`http://localhost:4000/`, {
+            fetch(`${apiUrl}/`, {
                 credentials: "include",
             })
                 .then((res) => res.json())

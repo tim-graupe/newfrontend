@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import config from "../config";
 import { TEInput, TERipple } from "tw-elements-react";
 import GoogleButton from 'react-google-button'
 export default function Login(): JSX.Element {
@@ -10,16 +11,21 @@ export default function Login(): JSX.Element {
         password: password,
     };
 
+    const apiUrl =
+        process.env.NODE_ENV === "development"
+            ? config.development.apiUrl
+            : config.production.apiUrl;
+
 
 
     const handleGoogleLogin = () => {
         // Redirect the user to the server-side login route
-        window.location.href = 'http://localhost:4000/auth/google';
+        window.location.href = `${apiUrl}/auth/google`;
     };
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
-        fetch(`http://localhost:4000/login`, {
+        fetch(`${apiUrl}/login`, {
             method: "POST",
             mode: 'cors',
             credentials: 'include',
@@ -43,7 +49,7 @@ export default function Login(): JSX.Element {
 
     const handleGuestLogin = (e: React.FormEvent) => {
         e.preventDefault();
-        fetch(`http://localhost:4000/login`, {
+        fetch(`${apiUrl}/login`, {
             method: "POST",
             mode: 'cors',
             credentials: 'include',

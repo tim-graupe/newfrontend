@@ -68,7 +68,7 @@ export const NewPost: React.FC<NewPostProps> = ({ user, profile }) => {
                 formData.append("profile_pic", pic);
             }
 
-            const response = await fetch(`http://localhost:4000/user/${profile}/new_img`, {
+            const response = await fetch(`${apiUrl}/user/${profile}/new_img`, {
                 mode: "cors",
                 method: "POST",
                 body: formData,

@@ -148,7 +148,7 @@ export const Posts: React.FC<Props> = ({ posts, loggedUser, user }) => {
                                             {post.content}
                                         </p>
                                     ) : (
-                                        <img src={`http://localhost:4000/images/${post.pic}`} alt={`${post.user.firstName}'s post`} />
+                                        <img src={`${apiUrl}/images/${post.pic}`} alt={`${post.user.firstName}'s post`} />
                                     )}
 
                                     <TERipple rippleColor="light">

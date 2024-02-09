@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { TEInput, TERipple } from "tw-elements-react";
-// import config from "../config";
+import config from "../config";
 
 
 interface RegisterData {
@@ -22,10 +22,10 @@ export const Register: React.FC = () => {
     const [dob, setDob] = useState<string>("");
     const [profile_pic, setPic] = useState<File | null>(null)
 
-    // const apiUrl =
-    //     process.env.NODE_ENV === "development"
-    //         ? config.development.apiUrl
-    //         : config.production.apiUrl;
+    const apiUrl =
+        process.env.NODE_ENV === "development"
+            ? config.development.apiUrl
+            : config.production.apiUrl;
 
     const jsonData: RegisterData = {
         firstName,
@@ -39,7 +39,7 @@ export const Register: React.FC = () => {
 
     const handleGoogleLogin = () => {
         // Redirect the user to the server-side login route
-        window.location.href = 'http://localhost:4000/auth/google';
+        window.location.href = `${apiUrl}/auth/google`;
     };
 
     const handlePhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +64,7 @@ export const Register: React.FC = () => {
                 formData.append("profile_pic", profile_pic);
             }
 
-            const response = await fetch(`http://localhost:4000/register`, {
+            const response = await fetch(`${apiUrl}/register`, {
                 mode: "cors",
                 method: "POST",
                 body: formData,

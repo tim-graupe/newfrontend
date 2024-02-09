@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import config from './config';
 import Login from './auth/Login';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Register } from './auth/Register';
@@ -26,9 +26,14 @@ export interface User {
 
 function App() {
   const [user, setUser] = useState<User | null>(null)
+  const apiUrl =
+    process.env.NODE_ENV === "development"
+      ? config.development.apiUrl
+      : config.production.apiUrl;
+
   useEffect(() => {
 
-    fetch("http://localhost:4000", {
+    fetch(`${apiUrl}`, {
       credentials: 'include',
       mode: 'cors'
     })
