@@ -20,7 +20,7 @@ export default function Login(): JSX.Element {
 
     const handleGoogleLogin = () => {
         // Redirect the user to the server-side login route
-        window.location.href = `https://newbackend-production-6c67.up.railway.app/auth/google`;
+        window.location.href = `${apiUrl}/auth/google`;
     };
 
     const test = () => {
@@ -35,7 +35,7 @@ export default function Login(): JSX.Element {
             .catch(error => {
                 console.error('Error:', error);
             });
-        fetch("https://newbackend-production-6c67.up.railway.app/", {
+        fetch("${apiUrl}/", {
             credentials: 'include',
             mode: 'cors'
         })
@@ -46,7 +46,7 @@ export default function Login(): JSX.Element {
             .catch(error => {
                 console.error('Error:', error);
             });
-        fetch("https://newbackend-production-6c67.up.railway.app", {
+        fetch("${apiUrl}", {
             credentials: 'include',
             mode: 'cors'
         })

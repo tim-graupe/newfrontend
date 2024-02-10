@@ -10,7 +10,7 @@ export const RequireAuth: FC<{ children: React.ReactElement }> = ({ children }) 
             : config.production.apiUrl;
 
     useEffect(() => {
-        fetch("https://newbackend-production-6c67.up.railway.app", {
+        fetch(`${apiUrl}`, {
             credentials: 'include',
             mode: 'cors'
         })
