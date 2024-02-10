@@ -23,6 +23,12 @@ export default function Login(): JSX.Element {
         window.location.href = `${apiUrl}/auth/google`;
     };
 
+    const test = () => {
+        console.log("https://newbackend-production-6c67.up.railway.app/")
+        console.log("https://newbackend-production-6c67.up.railway.app")
+        console.log(apiUrl)
+    }
+
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
         fetch(`${apiUrl}/login`, {
@@ -105,7 +111,7 @@ export default function Login(): JSX.Element {
                                 className="mb-6"
                                 size="lg"
                             ></TEInput>
-
+                            <button onClick={test}>Test</button>
                             {/* <!-- Remember me checkbox --> */}
                             <div className="flex items-center justify-between mb-6">
                                 <div className="mb-[0.125rem] block min-h-[1.5rem] pl-[1.5rem]">

@@ -30,8 +30,7 @@ function App() {
     process.env.NODE_ENV === "development"
       ? config.development.apiUrl
       : config.production.apiUrl;
-  console.log("apiUrl", apiUrl)
-  console.log(config.development.apiUrl, config.production.apiUrl)
+
   useEffect(() => {
 
     fetch(`${apiUrl}`, {
