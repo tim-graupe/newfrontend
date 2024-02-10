@@ -37,7 +37,7 @@ export const UserProfile: React.FC<Props> = (props) => {
 
     useEffect(() => {
         const getUserPosts = () => {
-            fetch(`${apiUrl}/user/${id}/posts`, {
+            fetch(`http://localhost:4000/user/${id}/posts`, {
                 credentials: "include",
             })
                 .then((res) => res.json())
@@ -50,7 +50,7 @@ export const UserProfile: React.FC<Props> = (props) => {
 
     useEffect(() => {
         const img = new Image();
-        img.src = `${apiUrl}/images/${user.profile_pic}`;
+        img.src = `http://localhost:4000/images/${user.profile_pic}`;
         img.onload = () => {
             setImageLoaded(true);
         };
@@ -137,7 +137,7 @@ export const UserProfile: React.FC<Props> = (props) => {
         <div className="grid-container">
             <div className="grid-item">    <div className="text-center">
                 <img
-                    src={imageLoaded ? `${apiUrl}/images/${user.profile_pic}` : user.profile_pic}
+                    src={imageLoaded ? `http://localhost:4000/images/${user.profile_pic}` : user.profile_pic}
                     className="w-32 mx-auto mb-4 rounded-lg"
                     alt={imageLoaded ? 'Loaded Avatar' : 'Default Avatar'}
                 />
