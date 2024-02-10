@@ -24,29 +24,29 @@ export default function Login(): JSX.Element {
     };
 
     const test = () => {
+        fetch(`https://newbackend-production-6c67.up.railway.app`, {
+            credentials: 'include',
+            mode: 'cors'
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        fetch(`${apiUrl}/`, {
+            credentials: 'include',
+            mode: 'cors'
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         fetch(`${apiUrl}`, {
-            credentials: 'include',
-            mode: 'cors'
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        fetch("${apiUrl}/", {
-            credentials: 'include',
-            mode: 'cors'
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        fetch("${apiUrl}", {
             credentials: 'include',
             mode: 'cors'
         })
