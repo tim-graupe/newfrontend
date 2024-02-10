@@ -20,13 +20,43 @@ export default function Login(): JSX.Element {
 
     const handleGoogleLogin = () => {
         // Redirect the user to the server-side login route
-        window.location.href = `${apiUrl}/auth/google`;
+        window.location.href = `https://newbackend-production-6c67.up.railway.app/auth/google`;
     };
 
     const test = () => {
-        console.log("https://newbackend-production-6c67.up.railway.app/")
-        console.log("https://newbackend-production-6c67.up.railway.app")
-        console.log(apiUrl)
+        fetch(`${apiUrl}`, {
+            credentials: 'include',
+            mode: 'cors'
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        fetch("https://newbackend-production-6c67.up.railway.app/", {
+            credentials: 'include',
+            mode: 'cors'
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        fetch("https://newbackend-production-6c67.up.railway.app", {
+            credentials: 'include',
+            mode: 'cors'
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
 
     const handleLogin = (e: React.FormEvent) => {
