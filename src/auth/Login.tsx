@@ -20,10 +20,12 @@ export default function Login(): JSX.Element {
 
     const handleGoogleLogin = () => {
         // Redirect the user to the server-side login route
-        window.location.href = `${apiUrl}/auth/google`;
+        window.location.href = `/auth/google`;
     };
 
-    const test = () => {
+    const test = (e: React.FormEvent) => {
+        e.preventDefault();
+
         fetch(`https://newbackend-production-6c67.up.railway.app`, {
             credentials: 'include',
             mode: 'cors'
