@@ -20,7 +20,7 @@ export default function Login(): JSX.Element {
 
     const handleGoogleLogin = () => {
         // Redirect the user to the server-side login route
-        window.location.href = `/auth/google`;
+        window.location.href = `${apiUrl}/auth/google`;
     };
 
     const test = (e: React.FormEvent) => {
