@@ -23,43 +23,7 @@ export default function Login(): JSX.Element {
         window.location.href = `${apiUrl}/auth/google`;
     };
 
-    const test = (e: React.FormEvent) => {
-        e.preventDefault();
 
-        fetch(`https://newbackend-production-6c67.up.railway.app`, {
-            credentials: 'include',
-            mode: 'cors'
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        fetch(`${apiUrl}/`, {
-            credentials: 'include',
-            mode: 'cors'
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        fetch(`${apiUrl}`, {
-            credentials: 'include',
-            mode: 'cors'
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
@@ -144,7 +108,7 @@ export default function Login(): JSX.Element {
                                 className="mb-6"
                                 size="lg"
                             ></TEInput>
-                            <button onClick={test}>Test</button>
+                            <a href={`${apiUrl}/auth/google`}>Login with Google</a>
                             {/* <!-- Remember me checkbox --> */}
                             <div className="flex items-center justify-between mb-6">
                                 <div className="mb-[0.125rem] block min-h-[1.5rem] pl-[1.5rem]">
