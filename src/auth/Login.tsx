@@ -18,10 +18,21 @@ export default function Login(): JSX.Element {
 
 
 
-    const handleGoogleLogin = () => {
-        // Redirect the user to the server-side login route
-        window.location.href = `${apiUrl}/auth/google`;
+    const handleGoogleLogin = async () => {
+        try {
+            const response = await fetch(`${apiUrl}/auth/google`, {
+                method: 'GET',
+                credentials: 'include',
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status}`);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
+
 
 
 
@@ -127,13 +138,7 @@ export default function Login(): JSX.Element {
                                     </label>
                                 </div>
 
-                                {/* <!-- Forgot password link --> */}
-                                {/* <a
-                                    href="#!"
-                                    className="transition duration-150 ease-in-out text-primary hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600"
-                                >
-                                    Forgot password?
-                                </a> */}
+
                             </div>
 
                             {/* <!-- Submit button --> */}
