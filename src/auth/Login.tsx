@@ -19,27 +19,10 @@ export default function Login(): JSX.Element {
 
     //login functions
 
-    const handleGoogleLogin = async () => {
-        try {
-            const response = await fetch(`${apiUrl}/auth/google`, {
-                method: 'GET',
-                mode: 'cors',
-                credentials: 'include',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (response.ok) {
-                console.log('Google authentication initiated successfully');
-            } else {
-                console.error('Failed to initiate Google authentication');
-            }
-        } catch (error) {
-            console.error('Error during Google authentication:', error);
-        }
+    const handleGoogleLogin = () => {
+        window.location.href = `${apiUrl}/auth/google`;
     };
+
 
 
     const handleLogin = (e: React.FormEvent) => {
