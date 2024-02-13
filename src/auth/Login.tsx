@@ -28,6 +28,9 @@ export default function Login(): JSX.Element {
             if (!response.ok) {
                 throw new Error(`Error: ${response.status}`);
             }
+
+            // Trigger Google authentication by redirecting to the Google endpoint
+            window.location.href = response.url;
         } catch (error) {
             console.error('Error:', error);
         }
@@ -167,9 +170,7 @@ export default function Login(): JSX.Element {
                                     OR
                                 </p>
                             </div>
-                            <GoogleButton
-                                onClick={handleGoogleLogin}
-                            />
+                            <button onClick={handleGoogleLogin}>Login with Google</button>
 
 
                         </form>
