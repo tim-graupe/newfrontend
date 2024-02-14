@@ -73,6 +73,21 @@ export default function Login(): JSX.Element {
             });
     };
 
+    const test = () => {
+        fetch(`${apiUrl}`, {
+            credentials: 'include',
+            mode: 'cors'
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+    }
+
     return (
         <section className="h-screen">
             <div className="container h-full px-6 py-24">
@@ -119,7 +134,7 @@ export default function Login(): JSX.Element {
                                     Sign in
                                 </button>
                             </TERipple>
-
+                            <button onClick={test}>RTest</button>
                             <button
                                 type="submit"
 
