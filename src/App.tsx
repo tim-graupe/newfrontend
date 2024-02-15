@@ -4,7 +4,6 @@ import config from './config';
 import Login from './auth/Login';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Register } from './auth/Register';
-import { Terms } from './auth/Terms';
 import { UserDashBoard } from './dashboard/UserDashBoard';
 import { NavBar } from './dashboard/nav/NavBar';
 import Footer from './dashboard/nav/Footer';
@@ -61,7 +60,6 @@ function App() {
         </RequireAuth>} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/terms" element={<Terms />} />
         <Route path="/dashboard" element={<RequireAuth>
           <UserDashBoard user={user} />
         </RequireAuth>} />
