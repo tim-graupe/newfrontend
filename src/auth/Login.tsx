@@ -59,7 +59,7 @@ export default function Login(): JSX.Element {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ email: process.env.testEmail, password: process.env.testPassword }),
+            body: JSON.stringify({ email: "test@test.com", password: "testtest" }),
         })
             .then(response => response.json())
             .then(data => {
