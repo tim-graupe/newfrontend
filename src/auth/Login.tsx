@@ -17,7 +17,6 @@ export default function Login(): JSX.Element {
             : config.production.apiUrl;
 
 
-
     //login functions
 
     const handleGoogleLogin = () => {
@@ -43,9 +42,6 @@ export default function Login(): JSX.Element {
                 console.log(data);
                 if (data.error) {
                     console.log(data);
-                } else {
-                    window.location.href = "/";
-
                 }
             })
             .catch(err => {
@@ -63,24 +59,19 @@ export default function Login(): JSX.Element {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ email: "test@test.com", password: "testtest" }),
+            body: JSON.stringify({ email: process.env.testEmail, password: process.env.testPassword }),
         })
             .then(response => response.json())
             .then(data => {
                 console.log(data);
                 if (data.error) {
                     console.log(data);
-                } else {
-                    window.location.href = "/";
                 }
             })
             .catch(err => {
                 console.log(err);
             });
     };
-
-
-
 
     return (
         <section className="h-screen">
@@ -123,15 +114,15 @@ export default function Login(): JSX.Element {
                                 <button
                                     onClick={handleLogin}
                                     type="submit"
-                                    className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
 
                                 >
                                     Sign in
                                 </button>
                             </TERipple>
+
                             <button
                                 type="submit"
-                                className="inline-block rounded bg-primary-100 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-primary-700 transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200"
+
                                 onClick={handleGuestLogin}
                             >
                                 Just visiting? Click here for a guest account
@@ -147,8 +138,8 @@ export default function Login(): JSX.Element {
                                 onClick={handleGoogleLogin}
                             />
 
+
                         </form>
-                        <p>New User? <a href="/register" className="transition duration-150 ease-in-out text-danger hover:text-danger-600 focus:text-danger-600 active:text-danger-700">Register</a></p>
                     </div>
                 </div>
             </div>
